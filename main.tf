@@ -1,16 +1,13 @@
-resource "kubernetes_limit_range" "example" {
+resource "kubernetes_namespace" "example" {
   metadata {
     name = var.name
   }
-  }
+}
 
-
-  
-  
-resource "kubernetes_limit_range" "namespace" {
+resource "kubernetes_limit_range" "example" {
   metadata {
-    name = "terraform-example"
-    namespace = var.name
+    name = "resource-limit"
+    namespace = kubernetes_namespace.example.metadata[0].name
   }
   spec {
     limit {
@@ -38,8 +35,8 @@ resource "kubernetes_limit_range" "namespace" {
 
 resource "kubernetes_resource_quota" "example" {
   metadata {
-    name = var.pod_quota
-    namespace = var.name
+    name = "terraform-example"
+    namespace = kubernetes_namespace.example.metadata[0].name
   }
   spec {
     hard = {
@@ -48,5 +45,14 @@ resource "kubernetes_resource_quota" "example" {
     scopes = ["BestEffort"]
   }
 }
+
+
+
+
+
+
+
+
+
 
 
