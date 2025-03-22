@@ -7,7 +7,7 @@ resource "kubernetes_limit_range" "example" {
 
   
   
-resource "kubernetes_limit_range" "example" {
+resource "kubernetes_limit_range" "namespace" {
   metadata {
     name = "terraform-example"
     namespace = var.name
